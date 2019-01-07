@@ -34,12 +34,12 @@ namespace Lab8
                    "\nМасса: " + mass.ToString() + " кг";
         }
     };
-    public class CollectionType<T> : InterfaceCollectionType<T> where T : Engine 
+    public class CollectionType<T> : InterfaceCollectionType<T> 
     {
         private List<T> field;
         private readonly Type type;
         private const int startindex = 10, lastindex = 20;
-        private Owner owner = new Owner(-1, "", "");
+        private Owner owner = new Owner(-10, "", "");
         private Date date = new Date(-1, -1, -1);
         public class Owner
         {
