@@ -18,7 +18,6 @@ namespace Lab15
             WriteLine("Приоритет потока: " + Thread.CurrentThread.Priority.ToString());
             WriteLine("Id потока: " + Thread.CurrentThread.ManagedThreadId.ToString());
             WriteLine("Статус потока: " + Thread.CurrentThread.ThreadState.ToString());
-            Thread.Sleep(5000);
             int n;
             int.TryParse(ReadLine(), out n);
             EasyNumbers(n);
@@ -74,7 +73,8 @@ namespace Lab15
         public void ForTimer(object obj)
         {
             for (int i = 1; i < n; i++)
-                WriteLine((i*n).ToString());
+                Write('.');
+            WriteLine();
         }
         public void Odd()
         {
@@ -82,7 +82,7 @@ namespace Lab15
                 file = new StreamWriter("oddeven.txt", true);
             for (int i = 1; i < n; i++)
             {
-                Thread.Sleep(5);
+                Thread.Sleep(30);
                 if (i % 2 != 0)
                 {
                     if (file.BaseStream == null)
@@ -98,8 +98,6 @@ namespace Lab15
         {
             lock (this)
             {
-                if (file.BaseStream == null)
-                    file = new StreamWriter("oddeven.txt", true);
                 for (int i = 1; i < n; i++)
                     if (i % 2 == 0)
                     {
@@ -112,49 +110,49 @@ namespace Lab15
                     file.Close();
             }
         }
-        //public void Odd()
-        //{
-        //    Monitor.Enter(this);
-        //    {
-        //        if (file.BaseStream == null)
-        //            file = new StreamWriter("oddeven.txt", true);
-        //        for (int i = 1; i < n; i++)
-        //        {
-        //            Thread.Sleep(5);
-        //            if (i % 2 != 0)
-        //            {
-        //                Monitor.Wait(this, 1);
-        //                if (file.BaseStream == null)
-        //                    file = new StreamWriter("oddeven.txt", true);
-        //                file.WriteLine(i);
-        //                WriteLine(i);
-        //            }
-        //        }
-        //        if (file.BaseStream != null)
-        //            file.Close();
-        //    }
-        //}
-        //public void Even()
-        //{
-        //    Monitor.Enter(this);
-        //    {
-        //        if (file.BaseStream == null)
-        //            file = new StreamWriter("oddeven.txt", true);
-        //        for (int i = 1; i < n; i++)
-        //        {
-        //            if (i % 2 == 0)
-        //            {
-        //                if (file.BaseStream == null)
-        //                    file = new StreamWriter("oddeven.txt", true);
-        //                file.WriteLine(i);
-        //                WriteLine(i);
-        //                Monitor.Wait(this, 6);
-        //            }
-        //        }
-        //        if (file.BaseStream != null)
-        //            file.Close();
-        //    }
-        //}
+        public void Odd1()
+        {
+            Monitor.Enter(this);
+            {
+                if (file.BaseStream == null)
+                    file = new StreamWriter("oddeven.txt", true);
+                for (int i = 1; i < n; i++)
+                {
+                    Thread.Sleep(5);
+                    if (i % 2 != 0)
+                    {
+                        Monitor.Wait(this, 1);
+                        if (file.BaseStream == null)
+                            file = new StreamWriter("oddeven.txt", true);
+                        file.WriteLine(i);
+                        WriteLine(i);
+                    }
+                }
+                if (file.BaseStream != null)
+                    file.Close();
+            }
+        }
+        public void Even1()
+        {
+            Monitor.Enter(this);
+            {
+                if (file.BaseStream == null)
+                    file = new StreamWriter("oddeven.txt", true);
+                for (int i = 1; i < n; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        if (file.BaseStream == null)
+                            file = new StreamWriter("oddeven.txt", true);
+                        file.WriteLine(i);
+                        WriteLine(i);
+                        Monitor.Wait(this, 6);
+                    }
+                }
+                if (file.BaseStream != null)
+                    file.Close();
+            }
+        }
     }
     class Program
     {
@@ -202,6 +200,7 @@ namespace Lab15
             WriteLine(buf2.ToString());
             Thread mythread = new Thread((new Element()).begin);
             mythread.Name = "\"Evgen\'s thread\"";
+            mythread.Priority = ThreadPriority.Highest;
             mythread.Start();
             Thread thread1, thread2;
             Numbers numbers = new Numbers();
@@ -212,12 +211,16 @@ namespace Lab15
             thread1.Priority = ThreadPriority.AboveNormal;
             thread1.Start();
             thread2.Start();
-            WriteLine("Press key to continue");
-            ReadKey();
+            Thread.Sleep(5000);
+            Thread thread3 = new Thread(numbers.Odd1);
+            Thread thread4 = new Thread(numbers.Even1);
+            thread3.IsBackground = true;
+            thread4.IsBackground = true;
+            thread3.Priority = ThreadPriority.AboveNormal;
+            thread3.Start();
+            thread4.Start();
             TimerCallback a = new TimerCallback(numbers.ForTimer);
-            Timer timer = new Timer(a, 10, 100, 700);
-           // Timer timer = new Timer();
-
+            Timer timer = new Timer(a, 10, 10000, 2000);
         }
     }
 }
