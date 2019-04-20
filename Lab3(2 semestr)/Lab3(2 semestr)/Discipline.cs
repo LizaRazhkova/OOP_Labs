@@ -4,20 +4,27 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using System.Runtime.Serialization;
 namespace Lab2_2_semestr_
 {
+    public enum SearchType
+    {
+        Lector = 0,
+        Semestr = 1,
+        Course = 2
+    }
     [DataContract]
-    struct Spec
+    public struct Spec
     {
         [DataMember]
-        private bool POIT;
+        public bool POIT;
         [DataMember]
-        private bool POIBMS;
+        public bool POIBMS;
         [DataMember]
-        private bool ISIT;
+        public bool ISIT;
         [DataMember]
-        private bool DEVI;
+        public bool DEVI;
         public Spec(bool poit, bool poibms, bool isit, bool devi)
         {
             POIT = poit;
@@ -34,20 +41,24 @@ namespace Lab2_2_semestr_
         }
     }
     [DataContract]
-    enum PassType
+    public enum PassType
     {
         Exam = 0,
         Test = 1
     }
     [DataContract]
-    class Lector
+    public class Lector
     {
         [DataMember]
-        private string SNP; // Surname Name Patronomic
+        public string SNP; // Surname Name Patronomic
         [DataMember]
-        private string Pulpit;
+        public string Pulpit;
         [DataMember]
-        private string MainWorkPlace;
+        public string MainWorkPlace;
+        public Lector()
+        {
+
+        }
         public Lector(string snp, string pulpit, int number, int building)
         {
             SNP = snp;
@@ -59,14 +70,16 @@ namespace Lab2_2_semestr_
         public string WorkPlace => MainWorkPlace;
     }
     [DataContract]
-    class Book
+    public class Book
     {
         [DataMember]
-        private string Author;
+        public string Author;
         [DataMember]
-        private string Name;
+        public string Name;
         [DataMember]
-        private DateTime CreationDate;
+        public DateTime CreationDate;
+        public Book()
+        { }
         public Book(string author, string name, DateTime date)
         {
             Author = author;
@@ -79,26 +92,33 @@ namespace Lab2_2_semestr_
             "\" " + CreationDate.Day.ToString() + '.' + CreationDate.Month.ToString() + '.' + CreationDate.Year.ToString();
     }
     [DataContract]
-    class Discipline
+    public class Discipline
     {
         [DataMember]
-        private string Name;
+        public string Name;
         [DataMember]
-        private int Semestr;
+        public int Semestr;
         [DataMember]
-        private int Course;
+        public int Course;
         [DataMember]
-        private Spec specialization;
+        public Spec specialization;
         [DataMember]
-        private int LecturesCount;
+        public int LecturesCount;
         [DataMember]
-        private int LabsCount;
+        public int LabsCount;
         [DataMember]
-        private PassType pass;
+        public PassType pass;
         [DataMember]
-        private Lector lector;
+        public Lector lector;
         [DataMember]
-        private List<Book> bookList;
+        public List<Book> bookList;
+        public Lector LectorInfo => lector;
+        public int semestr => Semestr;
+        public int couse => Course;
+        public Discipline()
+        {
+
+        }
         public Discipline(string name,
             int semestr,
             int course,

@@ -66,10 +66,15 @@
             this.Example1 = new System.Windows.Forms.Button();
             this.Example2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сортироватьПоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Search = new System.Windows.Forms.ToolStripMenuItem();
+            this.LectorSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.SemestrSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.CourseSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.Sort = new System.Windows.Forms.ToolStripMenuItem();
+            this.LecturesSort = new System.Windows.Forms.ToolStripMenuItem();
+            this.PassTypeSort = new System.Windows.Forms.ToolStripMenuItem();
+            this.Save = new System.Windows.Forms.ToolStripMenuItem();
+            this.About = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.CourseValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LecturesCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LabsCount)).BeginInit();
@@ -475,39 +480,83 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.поискToolStripMenuItem,
-            this.сортироватьПоToolStripMenuItem,
-            this.сохранитьToolStripMenuItem,
-            this.оПрограммеToolStripMenuItem});
+            this.Search,
+            this.Sort,
+            this.Save,
+            this.About});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 41;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Text = "Menu";
             // 
-            // поискToolStripMenuItem
+            // Search
             // 
-            this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.поискToolStripMenuItem.Text = "Поиск";
+            this.Search.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LectorSearch,
+            this.SemestrSearch,
+            this.CourseSearch});
+            this.Search.Name = "Search";
+            this.Search.Size = new System.Drawing.Size(54, 20);
+            this.Search.Text = "Поиск";
             // 
-            // сортироватьПоToolStripMenuItem
+            // LectorSearch
             // 
-            this.сортироватьПоToolStripMenuItem.Name = "сортироватьПоToolStripMenuItem";
-            this.сортироватьПоToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
-            this.сортироватьПоToolStripMenuItem.Text = "Сортировать по";
+            this.LectorSearch.Name = "LectorSearch";
+            this.LectorSearch.Size = new System.Drawing.Size(144, 22);
+            this.LectorSearch.Text = "По лектору";
+            this.LectorSearch.Click += new System.EventHandler(this.LectorSearch_Click);
             // 
-            // сохранитьToolStripMenuItem
+            // SemestrSearch
             // 
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.SemestrSearch.Name = "SemestrSearch";
+            this.SemestrSearch.Size = new System.Drawing.Size(144, 22);
+            this.SemestrSearch.Text = "По семестру";
+            this.SemestrSearch.Click += new System.EventHandler(this.SemestrSearch_Click);
             // 
-            // оПрограммеToolStripMenuItem
+            // CourseSearch
             // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.CourseSearch.Name = "CourseSearch";
+            this.CourseSearch.Size = new System.Drawing.Size(144, 22);
+            this.CourseSearch.Text = "По курсу";
+            this.CourseSearch.Click += new System.EventHandler(this.CourseSearch_Click);
+            // 
+            // Sort
+            // 
+            this.Sort.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LecturesSort,
+            this.PassTypeSort});
+            this.Sort.Name = "Sort";
+            this.Sort.Size = new System.Drawing.Size(107, 20);
+            this.Sort.Text = "Сортировать по";
+            // 
+            // LecturesSort
+            // 
+            this.LecturesSort.Name = "LecturesSort";
+            this.LecturesSort.Size = new System.Drawing.Size(181, 22);
+            this.LecturesSort.Text = "Количеству лекций";
+            this.LecturesSort.Click += new System.EventHandler(this.LecturesSort_Click);
+            // 
+            // PassTypeSort
+            // 
+            this.PassTypeSort.Name = "PassTypeSort";
+            this.PassTypeSort.Size = new System.Drawing.Size(181, 22);
+            this.PassTypeSort.Text = "Виду контроля";
+            this.PassTypeSort.Click += new System.EventHandler(this.PassTypeSort_Click);
+            // 
+            // Save
+            // 
+            this.Save.Name = "Save";
+            this.Save.Size = new System.Drawing.Size(77, 20);
+            this.Save.Text = "Сохранить";
+            this.Save.Click += new System.EventHandler(this.Save_Click);
+            // 
+            // About
+            // 
+            this.About.Name = "About";
+            this.About.Size = new System.Drawing.Size(94, 20);
+            this.About.Text = "О программе";
+            this.About.Click += new System.EventHandler(this.About_Click);
             // 
             // Form1
             // 
@@ -608,10 +657,15 @@
         private System.Windows.Forms.Button Example1;
         private System.Windows.Forms.Button Example2;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сортироватьПоToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Search;
+        private System.Windows.Forms.ToolStripMenuItem Sort;
+        private System.Windows.Forms.ToolStripMenuItem Save;
+        private System.Windows.Forms.ToolStripMenuItem About;
+        private System.Windows.Forms.ToolStripMenuItem LectorSearch;
+        private System.Windows.Forms.ToolStripMenuItem SemestrSearch;
+        private System.Windows.Forms.ToolStripMenuItem CourseSearch;
+        private System.Windows.Forms.ToolStripMenuItem LecturesSort;
+        private System.Windows.Forms.ToolStripMenuItem PassTypeSort;
     }
 }
 
